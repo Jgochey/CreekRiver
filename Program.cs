@@ -57,7 +57,7 @@ app.MapPost("/api/campsites", (CreekRiverDbContext db, Campsite campsite) =>
 {
     try
     {
-        // Check if the CampsiteTypeId exists
+        // Checks if the CampsiteTypeId associated with the Campsite exists.
         var validCampsiteType = db.CampsiteTypes.Any(ct => ct.Id == campsite.CampsiteTypeId);
         if (!validCampsiteType)
         {
@@ -111,6 +111,7 @@ app.MapPut("/api/campsites/{id}", (CreekRiverDbContext db, int id, Campsite camp
 
 app.MapGet("/api/reservations", (CreekRiverDbContext db) =>
 {
+    // Corresponds to a series of SQL operations that will link the columns together.
     return db.Reservations
         .Include(r => r.UserProfile)
         .Include(r => r.Campsite)
